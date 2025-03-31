@@ -18,10 +18,17 @@ class BinarySerchTree {
 
     TreeNode* root;
 
-    void Traversal(TreeNode* root) {
-        
-    
-           /* TreeNode* curr = root;
+    void Traversal_rec(TreeNode* root) {
+
+        if (nullptr == root) return;
+        Traversal_rec(root->left);
+        cout << root->val << " " ;
+        Traversal_rec(root->right);
+    }
+
+
+    vector<int> Traversal_iter(TreeNode* root) {
+            TreeNode* curr = root;
             vector<int> res;
             std::stack<TreeNode*> s;
 
@@ -35,13 +42,8 @@ class BinarySerchTree {
                 res.push_back(curr->val);
                 curr = curr->right;
             }
-            return res;*/
-            vector<int> res;
+            return res;
 
-            if (nullptr == root) return;
-            Traversal(root->left);
-            cout << root->val << " " ;
-            Traversal(root->right);
     }
         
 
@@ -64,8 +66,11 @@ class BinarySerchTree {
         void insertNode(const int val){
             root = insertNode(root, val);
         }
-        void Traversal() {
-            Traversal(root);
+        void Traversal_rec() {
+            Traversal_rec(root);
+        }
+        vector<int> Traversal_iter() {
+            return Traversal_iter(root);
         }
         
 };
@@ -80,10 +85,12 @@ int main(){
     t.insertNode(80);
     t.insertNode(100);
 
-    t.Traversal();
-    // for (int x : tree) {
-    //     cout << x << " ";
-    // }
+    t.Traversal_rec();
+    vector<int> tree = t.Traversal_iter(); 
+    cout <<  '\n' << endl;
+    for (int x :tree) {
+        cout << x << " ";
+    }
 
     
     return 0;
