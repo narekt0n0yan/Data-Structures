@@ -3,6 +3,7 @@
 #include <vector>
 #include <stack>
 #include "TreeNode.h"
+#include <queue>
 
 using namespace std;
 
@@ -46,7 +47,31 @@ TreeNode* BinarySearchTree::insertNode(TreeNode* root, int value) {
             }
             return root;
         }
+vector<vector<int>> BinarySearchTree::levelOrderTraversal(TreeNode* root) {
+    vector<vector<int>> result;
+    if (!root) return result;
 
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()){
+        int levelSize = q.size();
+        vector<int> currentLevel;
+
+        for( int i = 0; i < levelSize; ++i){
+            TreeNode* current = q.front();
+            q.pop();
+            currentLevel.push_back(current->val);
+
+            if (current->left) q.push(current->left);
+            if (current->right) q.push(current->right);
+
+        }
+        result.push_back(currentLevel);
+
+    }
+    return result;
+}
 
 BinarySearchTree::BinarySearchTree() : root(nullptr) {}
 
@@ -61,3 +86,14 @@ void BinarySearchTree::Traversal_rec() {
 vector<int> BinarySearchTree::Traversal_iter() {
         return Traversal_iter(root);
     }
+
+vector<vector<int>> BinarySearchTree::levelOrderTraversal(){
+    return levelOrderTraversal(root);
+}
+
+
+    
+
+
+
+    
